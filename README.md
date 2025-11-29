@@ -179,10 +179,16 @@ Run inside the backend/ directory:
 docker build -t exec-dashboard:latest .
 ```
 
-2. Run the container
+2. Tag for local development:
 
 ```
-docker run -p 8080:8080 exec-dashboard:latest
+docker tag exec-dashboard:latest exec-dashboard:dev
+```
+
+3. Run the container
+
+```
+docker run -p 8080:8080 exec-dashboard:dev
 ```
 
 
