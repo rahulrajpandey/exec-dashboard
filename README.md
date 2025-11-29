@@ -155,8 +155,11 @@ This JAR contains:
 ⸻
 
 🚀 Run Monolith from JAR
-
+```
 java -jar backend/target/backend-1.0-SNAPSHOT.jar
+
+java -jar backend/target/backend-1.0-SNAPSHOT.jar --app.mode=MOCK
+```
 
 UI available at:
 
@@ -186,11 +189,19 @@ docker tag exec-dashboard:latest exec-dashboard:dev
 ```
 
 3. Run the container
+Env variable for app mode can be passed (optionally).
 
 ```
+docker run -e APP_MODE=MOCK -p 8080:8080 exec-dashboard:dev
+
 docker run -p 8080:8080 exec-dashboard:dev
 ```
 
+4. Or use docker-compose instead of launching docker container directly
+
+```
+docker compose up
+```
 
 Validate:
 

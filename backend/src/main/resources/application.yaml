@@ -1,10 +1,8 @@
 server:
   port: 8080
 
-
 app:
   mode: MOCK # change to REAL for real connectivity
-
 
 spring:
   application:
