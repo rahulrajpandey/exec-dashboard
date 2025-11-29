@@ -14,6 +14,9 @@ RUN npm ci
 # Copy rest of frontend source
 COPY frontend/ .
 
+# check for badly formatted code
+RUN npm run lint && npm run format
+
 # Build optimized production bundle
 RUN npm run build
 

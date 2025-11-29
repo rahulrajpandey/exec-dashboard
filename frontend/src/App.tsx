@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 function App() {
   const [clusterData, setClusterData] = useState<any>(null);
@@ -7,11 +7,11 @@ function App() {
   const fetchClusterMetrics = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/realtime/cluster");
+      const response = await fetch('/api/realtime/cluster');
       const json = await response.json();
       setClusterData(json);
     } catch (error) {
-      console.error("Error fetching cluster metrics:", error);
+      console.error('Error fetching cluster metrics:', error);
     } finally {
       setLoading(false);
     }
@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
+    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
       <h1>Exec Dashboard Frontend</h1>
 
       {loading && <p>Loading metrics...</p>}
@@ -30,10 +30,10 @@ function App() {
       {!loading && clusterData && (
         <pre
           style={{
-            background: "#f5f5f5",
-            padding: "10px",
-            borderRadius: "6px",
-            overflowX: "auto",
+            background: '#f5f5f5',
+            padding: '10px',
+            borderRadius: '6px',
+            overflowX: 'auto',
           }}
         >
           {JSON.stringify(clusterData, null, 2)}
@@ -43,11 +43,11 @@ function App() {
       <button
         onClick={fetchClusterMetrics}
         style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          cursor: "pointer",
-          borderRadius: "8px",
-          border: "1px solid #333",
+          marginTop: '20px',
+          padding: '10px 20px',
+          cursor: 'pointer',
+          borderRadius: '8px',
+          border: '1px solid #333',
         }}
       >
         Refresh
