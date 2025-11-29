@@ -17,8 +17,8 @@ COPY frontend/ .
 # Build optimized production bundle
 RUN npm run build
 
-# Cleanup of node_modules after build
-RUN rm -rf node_modules
+# Cleanup node_modules and npm cache (reduces build layer size)
+RUN rm -rf node_modules /root/.npm
 
 
 # ============================================================
