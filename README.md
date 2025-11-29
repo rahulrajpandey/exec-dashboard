@@ -239,3 +239,223 @@ Deployment:
 Single Docker container, no separate frontend hosting
 
 
+------
+🚀 Executive Dashboard — Tech Stack & Design Choices
+
+🟩 1. Architecture Style
+
+✔ Monolithic Application (Recommended)
+
+Backend (Spring Boot) + Frontend (React) packaged and deployed together.
+
+Why?
+•	Simplest build/deploy
+•	No CORS issues
+•	Easier SSO integration
+•	One artifact, one service
+•	Best for internal tooling
+•	Easy mock-mode integration
+•	Works well inside AKS
+
+⸻
+
+🟦 2. Frontend Stack
+
+✔ React + TypeScript
+
+Modern, safe, enterprise-grade.
+
+✔ UI Library: ShadCN UI
+•	Tailwind-based
+•	Clean, modern, enterprise-ready
+•	Better than MUI for dashboards
+•	Highly customizable
+
+✔ Styling: Tailwind CSS
+
+✔ Charting Library: Apache ECharts
+
+Why ECharts?
+•	Best for metrics dashboards
+•	Handles large datasets
+•	Smooth interactions (hover, zoom, drill-down)
+•	Used by real analytics apps (Alibaba, Uber, Cloudflare)
+•	More powerful than Chart.js
+
+✔ Data Fetching: React Query (TanStack Query)
+
+Handles polling, caching, retries, query invalidation beautifully.
+
+✔ Pages-based Routing (React Router)
+
+⸻
+
+🟧 3. Backend Stack
+
+✔ Spring Boot 3.x (Java 21)
+
+Latest & modern JVM.
+
+✔ Hybrid API Approach
+•	REST API for real-time Kafka metrics
+•	GraphQL API for historical + metadata queries
+
+Why hybrid?
+
+Use Case	Best Approach	Why
+Real-time Kafka metrics	REST	Reliable polling, low latency
+Tenant/Topic metadata	GraphQL	Flexible queries
+Historical charts	GraphQL	Complex aggregation
+
+
+⸻
+
+🟥 4. Data Sources (3 streams)
+
+1️⃣ Real-time Operational Metrics → Kafka AdminClient
+
+Direct lightweight polling over Kafka binary protocol.
+
+Includes:
+•	messages/sec (offset delta)
+•	consumer lag
+•	partition health
+•	ISR status
+•	topic size
+•	leader/follower info
+
+Fastest. Lightweight. No JMX. No NewRelic.
+
+⸻
+
+2️⃣ Historical Metrics → NewRelic NRQL API
+
+Use company’s existing investment.
+
+Includes:
+•	last 7 days topic throughput
+•	daily message count
+•	latency breach counts
+•	partition under-replicated history
+
+No separate DB needed.
+
+⸻
+
+3️⃣ Metadata → Couchbase
+
+Source of truth for:
+•	tenant → topics mapping
+•	serviceId
+•	systemId
+•	userIds
+•	ACLs
+•	SLA tiers (Gold/Platinum)
+•	DLQ / Retry topic classification
+
+Kafka cannot provide this — mandatory for executive view.
+
+⸻
+
+🟨 5. Real-Time Data Delivery (to UI)
+
+✔ REST Polling (NOT WebSockets)
+
+Frontend polls API every 2–5 seconds.
+
+Backend polls Kafka on-demand or keeps a small 1–2 second cache.
+
+Why not WebSockets?
+•	Kafka does not push events
+•	Metrics are snapshots
+•	Polling is standard for dashboards
+•	Redpanda Console, Kafka UI, Confluent Control Center → ALL use polling
+•	Simplifies deployment on AKS ingress
+
+⸻
+
+🟪 6. Backend Architecture (Clean Layering)
+
+/controllers
+- RealTimeController   (REST)
+- GraphQLController    (GraphQL)
+/services
+- RealTimeMetricService
+- HistoricalMetricService
+- MetadataService
+/adapters
+/kafka
+- KafkaAdminClientAdapter
+/newrelic
+- NewRelicClient
+/couchbase
+- MetadataRepository
+/config
+/models
+
+
+⸻
+
+🟫 7. Mock-Mode Support
+
+Key Requirement: Build UI now, plug real data later
+
+Add an .env or config:
+
+DATA_SOURCE_MODE=MOCK
+
+When in MOCK:
+•	KafkaAdminClient adapter returns mock real-time JSON
+•	NewRelic adapter returns mock historical JSON
+•	Couchbase adapter returns mock tenant metadata
+
+This allows:
+•	UI to be fully functional
+•	Backend to have placeholder stubs
+•	CI/CD to run without dependencies
+
+Switch to REAL mode upon integration.
+
+⸻
+
+🟩 8. Deployment
+
+Platform: Azure AKS
+
+Ingress: NGINX Ingress Controller
+
+Docker: One container (monolith)
+
+Ports:
+•	Backend REST/GraphQL on 8080
+•	UI served from /
+
+Security/Future Needs:
+•	SSO (Azure AD) can be added later
+•	TLS at ingress
+•	Config via ConfigMaps + Secrets
+
+⸻
+
+🟦 9. Summary — FINAL Blueprint
+
+✔ Monolith
+
+✔ React + ShadCN + Tailwind + ECharts
+
+✔ Spring Boot (REST + GraphQL Hybrid)
+
+✔ Real-time → Kafka AdminClient
+
+✔ Historical → NewRelic
+
+✔ Metadata → Couchbase
+
+✔ Polling → 2–5 seconds
+
+✔ Mock-mode enabled
+
+✔ Deployed on AKS
+
+This is modern, lightweight, enterprise-grade, and future-proof.
+
