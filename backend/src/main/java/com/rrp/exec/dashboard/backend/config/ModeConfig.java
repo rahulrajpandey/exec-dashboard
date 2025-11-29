@@ -6,20 +6,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "app")
 public class ModeConfig {
-    /**
-     * Allowed values: MOCK, REAL
-     */
-    private String mode = "MOCK";
+  /** Allowed values: MOCK, REAL */
+  private String mode = "MOCK";
 
-    public String mode() {
-        return mode;
-    }
+  public String mode() {
+    return mode;
+  }
 
-    public void setMode(String mode) {
-        this.mode = mode;
-    }
+  public void setMode(String mode) {
+    this.mode = mode;
+  }
 
-    public boolean isMock() {
-        return "MOCK".equalsIgnoreCase(mode);
-    }
+  public boolean isMock() {
+    return "MOCK".equalsIgnoreCase(mode);
+  }
 }

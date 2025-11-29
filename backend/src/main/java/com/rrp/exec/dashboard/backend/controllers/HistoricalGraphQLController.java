@@ -10,14 +10,14 @@ import reactor.core.publisher.Mono;
 @Controller
 public class HistoricalGraphQLController {
 
-    private final HistoricalMetricService historicalMetricService;
+  private final HistoricalMetricService historicalMetricService;
 
-    public HistoricalGraphQLController(HistoricalMetricService historicalMetricService) {
-        this.historicalMetricService = historicalMetricService;
-    }
+  public HistoricalGraphQLController(HistoricalMetricService historicalMetricService) {
+    this.historicalMetricService = historicalMetricService;
+  }
 
-    @QueryMapping
-    public Mono<TopicHistoryDTO> topicHistory(@Argument String topic, @Argument int days) {
-        return historicalMetricService.getTopicHistory(topic, days);
-    }
+  @QueryMapping
+  public Mono<TopicHistoryDTO> topicHistory(@Argument String topic, @Argument int days) {
+    return historicalMetricService.getTopicHistory(topic, days);
+  }
 }

@@ -12,15 +12,14 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/realtime")
 public class RealTimeController {
 
-    private final RealTimeMetricService realTimeMetricService;
+  private final RealTimeMetricService realTimeMetricService;
 
-    public RealTimeController(RealTimeMetricService realTimeMetricService) {
-        this.realTimeMetricService = realTimeMetricService;
-    }
+  public RealTimeController(RealTimeMetricService realTimeMetricService) {
+    this.realTimeMetricService = realTimeMetricService;
+  }
 
-    @GetMapping("/cluster")
-    public Mono<ApiResponse<ClusterMetricsDTO>> getClusterMetrics() {
-        return realTimeMetricService.getClusterSnapshot()
-                .map(ApiResponse::ok);
-    }
+  @GetMapping("/cluster")
+  public Mono<ApiResponse<ClusterMetricsDTO>> getClusterMetrics() {
+    return realTimeMetricService.getClusterSnapshot().map(ApiResponse::ok);
+  }
 }
