@@ -1,0 +1,28 @@
+meta {
+  name: GQL GetHistorical Cluster Data
+  type: graphql
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/graphql
+  body: graphql
+  auth: inherit
+}
+
+body:graphql {
+  query GetHistory {
+    topicHistory(topic: "payments.txn", days: 7) {
+      topic
+      dailyCounts {
+        date
+        count
+      }
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

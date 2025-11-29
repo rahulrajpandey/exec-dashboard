@@ -1,0 +1,45 @@
+{
+  "clusterId": "local-mock-cluster",
+  "timestamp": 1716820000000,
+  "totalTopics": 4,
+  "totalPartitions": 12,
+  "totalLag": 42,
+  "topics": [
+    {
+      "topic": "payments.txn",
+      "messagesPerSecond": 152.4,
+      "consumerLag": 10,
+      "sizeBytes": 83000211,
+      "partitionCount": 4,
+      "underReplicatedPartitions": 0,
+      "inSyncReplicas": 3
+    },
+    {
+      "topic": "orders.events",
+      "messagesPerSecond": 98.2,
+      "consumerLag": 0,
+      "sizeBytes": 45002113,
+      "partitionCount": 3,
+      "underReplicatedPartitions": 0,
+      "inSyncReplicas": 3
+    },
+    {
+      "topic": "shipping.updates",
+      "messagesPerSecond": 55.7,
+      "consumerLag": 12,
+      "sizeBytes": 20900000,
+      "partitionCount": 3,
+      "underReplicatedPartitions": 0,
+      "inSyncReplicas": 3
+    },
+    {
+      "topic": "billing.adjustments",
+      "messagesPerSecond": 20.1,
+      "consumerLag": 20,
+      "sizeBytes": 11000011,
+      "partitionCount": 2,
+      "underReplicatedPartitions": 0,
+      "inSyncReplicas": 2
+    }
+  ]
+}

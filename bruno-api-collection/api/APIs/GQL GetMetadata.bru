@@ -1,0 +1,27 @@
+meta {
+  name: GQL GetMetadata
+  type: graphql
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/graphql
+  body: graphql
+  auth: inherit
+}
+
+body:graphql {
+  {
+    tenants {
+      tenantId
+      tenantName
+      topics
+      slaTier
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

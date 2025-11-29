@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+
+app:
+  mode: MOCK # change to REAL for real connectivity
+
+
+spring:
+  application:
+    name: exec-dashboard-backend
+  graphql:
+    schema:
+      locations: classpath*:graphql/**

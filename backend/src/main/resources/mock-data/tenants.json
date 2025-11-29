@@ -1,0 +1,20 @@
+[
+  {
+    "tenantId": "team-abc",
+    "tenantName": "ABC Payments Team",
+    "topics": ["payments.txn", "payments.dlq"],
+    "slaTier": "GOLD"
+  },
+  {
+    "tenantId": "team-orders",
+    "tenantName": "Orders Platform Team",
+    "topics": ["orders.events", "orders.retry"],
+    "slaTier": "SILVER"
+  },
+  {
+    "tenantId": "team-logistics",
+    "tenantName": "Logistics Team",
+    "topics": ["shipping.updates"],
+    "slaTier": "BRONZE"
+  }
+]

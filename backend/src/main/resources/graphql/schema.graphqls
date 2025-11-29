@@ -1,0 +1,21 @@
+type Tenant {
+  tenantId: String
+  tenantName: String
+  topics: [String]
+  slaTier: String
+}
+
+type DailyCount {
+  date: String
+  count: Float
+}
+
+type TopicHistory {
+  topic: String
+  dailyCounts: [DailyCount]
+}
+
+type Query {
+  tenants: [Tenant]
+  topicHistory(topic: String!, days: Int!): TopicHistory
+}
