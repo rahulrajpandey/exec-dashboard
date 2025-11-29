@@ -1,0 +1,65 @@
+# ======================================================
+#  GLOBAL LINE ENDINGS
+# ======================================================
+# Enforce LF across all text files (prevents format drift)
+* text=auto eol=lf
+
+# ======================================================
+#  BACKEND (Java / Spring Boot)
+# ======================================================
+*.java      text diff=java
+*.properties text
+*.xml       text
+*.yaml      text
+*.yml       text
+
+# ======================================================
+#  FRONTEND (React / Vite)
+# ======================================================
+*.js        text
+*.jsx       text
+*.ts        text
+*.tsx       text
+*.json      text
+*.css       text
+*.scss      text
+*.html      text
+
+# ======================================================
+#  GIT IGNORE BINARY FILES (no diffs, no CRLF conversion)
+# ======================================================
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.svg       binary
+*.ico       binary
+*.pdf       binary
+*.ttf       binary
+*.woff      binary
+*.woff2     binary
+*.zip       binary
+
+# ======================================================
+#  SHELL SCRIPTS
+# ======================================================
+*.sh text eol=lf
+
+# ======================================================
+#  DOCKERFILE & CONFIGS
+# ======================================================
+Dockerfile text
+*.dockerignore text
+
+# ======================================================
+#  MARKDOWN (docs)
+# ======================================================
+*.md text
+
+# ======================================================
+#  PREVENT OS-SPECIFIC FILES FROM GETTING WEIRD
+# ======================================================
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+/mvnw text eol=lf
